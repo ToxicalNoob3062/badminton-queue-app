@@ -21,7 +21,7 @@ const playerSchema = new mongoose.Schema({
 const Player = mongoose.model("Player", playerSchema);
 
 app.use(bodyParser.json());
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public"))); // Serve static files from the public directory
 
 // Serve the HTML file
 app.get("/", (req, res) => {
