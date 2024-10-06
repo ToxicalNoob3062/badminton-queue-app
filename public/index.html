@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Badminton Queue</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Badminton Queue</h1>
+      <input type="text" id="nameInput" placeholder="Enter your name" />
+      <button id="joinButton">Join</button>
+
+      <h2>Current Queue:</h2>
+      <table id="queueTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Queue entries will be dynamically populated here -->
+        </tbody>
+      </table>
+
+      <div class="admin">
+        <input
+          type="password"
+          id="adminPassword"
+          placeholder="Admin Password"
+        />
+        <button id="resetButton">Reset Queue</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
