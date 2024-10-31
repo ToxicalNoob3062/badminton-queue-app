@@ -1,7 +1,8 @@
 /* General Styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
   margin: 0;
   padding: 0;
   display: flex;
@@ -11,76 +12,115 @@ body {
 }
 
 .container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  width: 100%;
+  background-color: #1e1e1e;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1),
+    0 0 15px rgba(255, 255, 255, 0.2);
+  max-width: 700px;
+  width: calc(100% - 40px); /* Ensure some space on the sides */
   box-sizing: border-box;
+  text-align: center;
+  margin: 20px; /* Add margin to detach shadow from sides */
 }
 
-h1,
-h2 {
-  text-align: center;
-  color: #333;
+h1 {
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+#currentDate {
+  font-weight: bold;
+  margin: 15px 0;
+  font-size: 18px;
+  color: #bbbbbb;
 }
 
 input[type="text"],
 input[type="password"] {
   width: calc(100% - 22px);
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #444444;
+  background-color: #2e2e2e;
+  color: #e0e0e0;
+  border-radius: 5px;
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 button {
-  width: 100%;
-  padding: 10px;
+  width: calc(100% - 32px); /* Slightly smaller than input */
+  padding: 10px; /* Slightly smaller padding */
   background-color: #007bff;
-  color: #fff;
+  color: #ffffff;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px; /* Increased font size */
+  margin-top: 10px;
 }
 
 button:hover {
   background-color: #0056b3;
 }
 
+/* Queue Table Styles */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 table,
 th,
 td {
-  border: 1px solid #ddd;
+  border: 1px solid #444444;
 }
 
 th,
 td {
-  padding: 10px;
+  padding: 12px;
   text-align: left;
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #333333;
+  color: #ffffff;
 }
 
-.admin {
+td {
+  background-color: #2e2e2e;
+  color: #e0e0e0;
+}
+
+#emptyQueueMessage {
   margin-top: 20px;
+  font-size: 18px;
+  color: silver;
+  border-top: 2px solid #e0e0e0;
+  padding-top: 20px;
+}
+
+h2 {
+  color: #bbbbbb;
+  font-size: 20px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+h2#currentDate {
+  color: #bbbbbb;
+  font-size: 18px;
+  text-shadow: none;
 }
 
 /* Responsive Styles */
 @media (max-width: 600px) {
   .container {
-    padding: 10px;
+    padding: 20px;
+    margin: 10px; /* Ensure some space on the sides */
   }
 
   input[type="text"],
@@ -89,11 +129,38 @@ th {
   }
 
   button {
-    font-size: 14px;
+    width: calc(100% - 22px); /* Slightly smaller than input */
+    font-size: 16px; /* Adjusted font size for smaller screens */
   }
 
   th,
   td {
-    padding: 8px;
+    padding: 10px;
   }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 20px;
+    margin: 2px; /* Minimize margin to indicate it's a card */
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: calc(100% - 12px);
+  }
+
+  button {
+    width: calc(100% - 22px); /* Slightly smaller than input */
+    font-size: 16px; /* Adjusted font size for smaller screens */
+  }
+
+  th,
+  td {
+    padding: 10px;
+  }
+}
+
+.hidden {
+  display: none;
 }

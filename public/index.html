@@ -4,18 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Badminton Queue</title>
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div class="container">
-      <h1>Badminton Queue</h1>
-      <input type="text" id="nameInput" placeholder="Enter your name" />
+      <h1>Badminton Queue 🏸</h1>
+      <h2 id="currentDate"></h2>
+      <input
+        type="text"
+        id="nameInput"
+        placeholder="Enter your name"
+        maxlength="10"
+      />
       <button id="joinButton">Join</button>
 
-      <h2>Current Queue:</h2>
+      <h2>Players 👦</h2>
+      <h4 id="emptyQueueMessage" class="hidden">The Queue is empty! 🪹</h4>
       <table id="queueTable">
         <thead>
           <tr>
+            <th>#</th>
             <th>Name</th>
             <th>Timestamp</th>
           </tr>
@@ -24,17 +32,7 @@
           <!-- Queue entries will be dynamically populated here -->
         </tbody>
       </table>
-
-      <div class="admin">
-        <input
-          type="password"
-          id="adminPassword"
-          placeholder="Admin Password"
-        />
-        <button id="resetButton">Reset Queue</button>
-      </div>
     </div>
-
-    <script src="/script.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>
