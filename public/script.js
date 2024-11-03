@@ -57,6 +57,9 @@ function updateQueueTable(queue) {
 function joinQueue(name) {
   if (!name) return;
 
+  //trim() removes whitespace from both ends of a string
+  name = name.trim();
+
   fetch("/queue")
     .then((response) => {
       if (!response.ok) {

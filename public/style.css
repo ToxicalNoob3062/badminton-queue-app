@@ -1,7 +1,12 @@
 /* General Styles */
+/* General Styles */
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
-  background-color: #121212;
+  background: linear-gradient(
+    135deg,
+    #000000,
+    #333333
+  ); /* Gradient background */
   color: #e0e0e0;
   margin: 0;
   padding: 0;
@@ -22,6 +27,18 @@ body {
   box-sizing: border-box;
   text-align: center;
   margin: 20px; /* Add margin to detach shadow from sides */
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1),
+      0 0 15px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3),
+      0 0 20px rgba(255, 255, 255, 0.4);
+  }
 }
 
 h1 {
@@ -52,17 +69,48 @@ input[type="password"] {
 button {
   width: calc(100% - 32px); /* Slightly smaller than input */
   padding: 10px; /* Slightly smaller padding */
-  background-color: #007bff;
-  color: #ffffff;
+  background-color: #ff9800; /* Orange variant */
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 18px; /* Increased font size */
   margin-top: 10px;
+  position: relative;
+  overflow: hidden;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #e68900; /* Darker orange on hover */
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%; /* Start completely off the button */
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-25deg);
+}
+
+button::before {
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%; /* Start completely off the button */
+  }
+  50% {
+    left: 100%; /* Move completely off the button */
+  }
+  100% {
+    left: 110%; /* Ensure it stays off the button */
+  }
 }
 
 /* Queue Table Styles */

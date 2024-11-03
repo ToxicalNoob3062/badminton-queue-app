@@ -13,10 +13,7 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI);
 
 // Define schemas
 const playerSchema = new mongoose.Schema({
