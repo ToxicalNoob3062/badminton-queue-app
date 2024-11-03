@@ -1,5 +1,4 @@
 /* General Styles */
-/* General Styles */
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
   background: linear-gradient(
@@ -44,6 +43,32 @@ body {
 h1 {
   color: #ffffff;
   margin-bottom: 20px;
+  position: relative;
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 200px;
+  height: 5px;
+  background: linear-gradient(90deg, #ff9800, #e68900, #ff9800);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: underlineGlow 3s infinite alternate;
+}
+
+@keyframes underlineGlow {
+  0% {
+    background: linear-gradient(90deg, #ff9800, #e68900, #ff9800);
+  }
+  50% {
+    background: linear-gradient(90deg, #e68900, #ff9800, #e68900);
+  }
+  100% {
+    background: linear-gradient(90deg, #ff9800, #e68900, #ff9800);
+  }
 }
 
 #currentDate {
@@ -67,12 +92,11 @@ input[type="password"] {
 }
 
 button {
-  width: calc(100% - 32px); /* Slightly smaller than input */
+  width: calc(100%-32px); /* Slightly smaller than input */
   padding: 10px; /* Slightly smaller padding */
   background-color: #ff9800; /* Orange variant */
   color: white;
   font-weight: bold;
-  letter-spacing: 2px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -83,7 +107,7 @@ button {
 }
 
 button:hover {
-  background-color: #e68900; /* Darker orange on hover */
+  background-color: #b7740e; /* Darker orange on hover */
 }
 
 button::before {
@@ -158,6 +182,15 @@ h2 {
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
+#title-tag {
+  color: #ff9800;
+  font-family: "Kablammo", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "MORF" 0;
+  font-size: 25px;
+}
 h2#currentDate {
   color: #bbbbbb;
   font-size: 18px;
