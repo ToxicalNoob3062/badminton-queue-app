@@ -1,5 +1,3 @@
-const io = require("socket.io-client");
-
 const queueTableBody = document.querySelector("#queueTable tbody");
 const joinButton = document.getElementById("joinButton");
 const nameInput = document.getElementById("nameInput");
@@ -92,9 +90,13 @@ function joinQueue(name) {
       if (!response || !response.ok) {
         throw new Error("Failed to add to queue");
       }
+      return response.json();
+    })
+    .then((queue) => {
       // Save the name to local storage
       localStorage.setItem(localStorageKey, name);
-      // No need to update the queue here as it will be updated via socket
+      // Update the queue table with the new queue
+      updateQueueTable(queue);
     })
     .catch((error) => console.error("Error joining queue:", error))
     .finally(() => {
@@ -158,11 +160,4 @@ document.addEventListener("DOMContentLoaded", () => {
   loadQueue();
   loadCurrentDate();
   loadNameFromLocalStorage();
-
-  // Socket.IO setup
-  const socket = io();
-
-  socket.on("updateQueue", (queue) => {
-    updateQueueTable(queue);
-  });
 });

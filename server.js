@@ -5,32 +5,18 @@ const path = require("path");
 const dotenv = require("dotenv");
 const moment = require("moment-timezone");
 const http = require("http");
-const { Server } = require("socket.io");
 
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
 const server = http.createServer(app);
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://badminton-queue-app.vercel.app",
-];
-const io = new Server(server, {
-  cors: {
-    origin: (origin, callback) => {
-      if (allowedOrigins.includes(origin) || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST"],
-  },
-});
 const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 // Define schemas
 const playerSchema = new mongoose.Schema({
@@ -99,7 +85,7 @@ app.get("/queue", async (req, res) => {
   }
 });
 
-// Add a new entry to the queue and sort
+// Add a new entry to the queue and return the updated queue
 app.post("/queue", async (req, res) => {
   try {
     const { name } = req.body;
@@ -108,8 +94,7 @@ app.post("/queue", async (req, res) => {
     await newPlayer.save();
     const queue = await Player.find();
     queue.sort((a, b) => compareTimes(a.time, b.time));
-    res.status(201).send();
-    io.emit("updateQueue", queue);
+    res.status(201).json(queue);
   } catch (err) {
     res.status(500).json({ error: "Failed to add to queue" });
   }
