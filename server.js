@@ -4,10 +4,29 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const dotenv = require("dotenv");
 const moment = require("moment-timezone");
+const http = require("http");
+const { Server } = require("socket.io");
 
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
+const server = http.createServer(app);
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://badminton-queue-app.vercel.app",
+];
+const io = new Server(server, {
+  cors: {
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST"],
+  },
+});
 const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
@@ -53,28 +72,44 @@ app.use(async (_, res, next) => {
 
 // Serve the HTML file
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html", "style.css"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Load the queue
+function compareTimes(a, b) {
+  const timeA = moment(a, "hh:mm A");
+  const timeB = moment(b, "hh:mm A");
+
+  if (timeA.isBefore(timeB)) {
+    return -1;
+  }
+  if (timeA.isAfter(timeB)) {
+    return 1;
+  }
+  return 0;
+}
+
+// Load the queue with custom sorting
 app.get("/queue", async (req, res) => {
   try {
-    const queue = await Player.find().sort({ time: 1 });
+    const queue = await Player.find();
+    queue.sort((a, b) => compareTimes(a.time, b.time));
     res.json(queue);
   } catch (err) {
     res.status(500).json({ error: "Failed to load queue" });
   }
 });
 
-// Add a new entry to the queue
+// Add a new entry to the queue and sort
 app.post("/queue", async (req, res) => {
   try {
     const { name } = req.body;
     const currentTime = moment().tz("America/Toronto").format("hh:mm A");
     const newPlayer = new Player({ name, time: currentTime });
     await newPlayer.save();
-    const queue = await Player.find().sort({ time: 1 });
-    res.json(queue);
+    const queue = await Player.find();
+    queue.sort((a, b) => compareTimes(a.time, b.time));
+    res.status(201).send();
+    io.emit("updateQueue", queue);
   } catch (err) {
     res.status(500).json({ error: "Failed to add to queue" });
   }
@@ -90,6 +125,6 @@ app.get("/current-date", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
