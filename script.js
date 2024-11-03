@@ -1,4 +1,4 @@
-import { io } from "https://cdn.socket.io/4.8.1/socket.io.esm.min.js";
+const io = require("socket.io-client");
 
 const queueTableBody = document.querySelector("#queueTable tbody");
 const joinButton = document.getElementById("joinButton");
