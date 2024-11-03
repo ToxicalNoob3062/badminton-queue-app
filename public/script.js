@@ -92,6 +92,8 @@ function joinQueue(name) {
       if (!response || !response.ok) {
         throw new Error("Failed to add to queue");
       }
+      // Save the name to local storage
+      localStorage.setItem(localStorageKey, name);
       // No need to update the queue here as it will be updated via socket
     })
     .catch((error) => console.error("Error joining queue:", error))
