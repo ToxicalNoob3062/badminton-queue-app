@@ -92,7 +92,7 @@ input[type="password"] {
 }
 
 button {
-  width: calc(100%-32px); /* Slightly smaller than input */
+  width: calc(100% - 22px); /* Slightly smaller than input */
   padding: 10px; /* Slightly smaller padding */
   background-color: #ff9800; /* Orange variant */
   color: white;
